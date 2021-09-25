@@ -26,4 +26,6 @@ const bars = container
   .data(DUMMY_DATA)
   .enter()
   .append("div")
-  .classed("bar", true);
+  .classed("bar", true)
+  .style("width", '50px')
+  .style("height", data => (data.value * 15) + 'px');
