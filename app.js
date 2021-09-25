@@ -1,14 +1,29 @@
-// TODO: later on add these via npm install
-// console.log('test');
+// TODO: see how to replace stuff in VCS
+// data to be output in a bar chart
+const DUMMY_DATA = [
+  { id: "d1", value: 10, region: "USA" },
+  { id: "d2", value: 11, region: "Indi" },
+  { id: "d3", value: 12, region: "China" },
+  { id: "d4", value: 6, region: "Germany" },
+];
 
-console.log(d3);
+// this is how we can render data
+// d3.select('div')
+//   .selectAll('p')
+//   .data(DUMMY_DATA)
+//   .enter()
+//   .append('p')
+//   .text((data) => data.region);
 
-d3.select("div") // select a div
-  .selectAll("p") // select all paragraphs in that div
-  .data([1, 2, 3]) // bind data to those paragraphs
-  .enter() // tell me which paragraphs are missing
-  .append("p") // appends a paragraph for every missing one
-  // .text('Hello'); // text task
-  .text((data) => data); // add the data points from the data array in paragraphs
+// bar chart
+const container = d3
+  .select("div")
+  .classed("container", true)
+  .style("border", "1px solid red");
 
-// now d3.js will render 3 new div for each one data point
+const bars = container
+  .selectAll("div")
+  .data(DUMMY_DATA)
+  .enter()
+  .append("div")
+  .classed("bar", true);
