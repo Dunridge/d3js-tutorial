@@ -17,15 +17,14 @@ const DUMMY_DATA = [
 
 // bar chart
 const container = d3
-  .select("div")
-  .classed("container", true)
-  .style("border", "1px solid red");
+  .select("svg")
+  .classed("container", true);
 
 const bars = container
   .selectAll("div")
   .data(DUMMY_DATA)
   .enter()
-  .append("div")
+  .append("rect")
   .classed("bar", true)
-  .style("width", '50px')
-  .style("height", data => (data.value * 15) + 'px');
+  .style("width", 50)
+  .style("height", data => (data.value * 15));

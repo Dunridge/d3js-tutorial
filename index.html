@@ -9,16 +9,24 @@
         .container {
             width: 250px;
             height: 200px;
-            display: flex;
-            justify-content: space-around;
+            border: 1px solid #720570;
+            /* for divs */
+            /* display: flex; */
+            /* justify-content: space-around; */
+            /* for svgs */
+
         }
 
         .bar {
-            background-color: #720570;
+            /* for divs */
+            /* background-color: #720570; */
+            /* for svgs */
+            fill: #720570; 
         }
     </style>
     <!-- Adding d3.js via script -->
-    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://d3js.org/d3.v7.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3-scale@4" defer></script>
     <script src="app.js" defer></script>
 </head>
 <body>
