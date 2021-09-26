@@ -1,14 +1,47 @@
-// TODO: later on add these via npm install
-// console.log('test');
+// TODO: see how to replace stuff in VCS
+// data to be output in a bar chart
+const DUMMY_DATA = [
+  { id: "d1", value: 10, region: "USA" },
+  { id: "d2", value: 11, region: "Indi" },
+  { id: "d3", value: 12, region: "China" },
+  { id: "d4", value: 6, region: "Germany" },
+];
 
-console.log(d3);
+// this is how we can render data
+// d3.select('div')
+//   .selectAll('p')
+//   .data(DUMMY_DATA)
+//   .enter()
+//   .append('p')
+//   .text((data) => data.region);
 
-d3.select("div") // select a div
-  .selectAll("p") // select all paragraphs in that div
-  .data([1, 2, 3]) // bind data to those paragraphs
-  .enter() // tell me which paragraphs are missing
-  .append("p") // appends a paragraph for every missing one
-  // .text('Hello'); // text task
-  .text((data) => data); // add the data points from the data array in paragraphs
+const availableHeight = 200;
 
-// now d3.js will render 3 new div for each one data point
+// calculate the position on the x and y axes 
+const xScale = d3
+    .scaleBand()
+    .domain(DUMMY_DATA.map(dataPoint => dataPoint.region))
+    .rangeRound([0, 250])
+    .padding(0.1);
+const yScale = d3.scaleLinear().domain([0, 15]).range([availableHeight, 0]);
+
+// bar chart
+const container = d3
+  .select("svg")
+  .classed("container", true);
+
+const bars = container
+  .selectAll(".bar")
+  .data(DUMMY_DATA)
+  .enter()
+  .append("rect")
+  .classed("bar", true)
+  .attr("width", xScale.bandwidth())
+  .attr("height", data => availableHeight - yScale(data.value))
+  .attr('x', data => xScale(data.region))
+  .attr('y', data => yScale(data.value));
+
+
+setTimeout(() => {
+  bars.data(DUMMY_DATA.slice(0,2)).exit().remove();
+}, 2000); // after two second the bars are redrawn 
