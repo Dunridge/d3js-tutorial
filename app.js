@@ -15,16 +15,33 @@ const DUMMY_DATA = [
 //   .append('p')
 //   .text((data) => data.region);
 
+const availableHeight = 200;
+
+// calculate the position on the x and y axes 
+const xScale = d3
+    .scaleBand()
+    .domain(DUMMY_DATA.map(dataPoint => dataPoint.region))
+    .rangeRound([0, 250])
+    .padding(0.1);
+const yScale = d3.scaleLinear().domain([0, 15]).range([availableHeight, 0]);
+
 // bar chart
 const container = d3
   .select("svg")
   .classed("container", true);
 
 const bars = container
-  .selectAll("div")
+  .selectAll(".bar")
   .data(DUMMY_DATA)
   .enter()
   .append("rect")
   .classed("bar", true)
-  .style("width", 50)
-  .style("height", data => (data.value * 15));
+  .attr("width", xScale.bandwidth())
+  .attr("height", data => availableHeight - yScale(data.value))
+  .attr('x', data => xScale(data.region))
+  .attr('y', data => yScale(data.value));
+
+
+setTimeout(() => {
+  bars.data(DUMMY_DATA.slice(0,2)).exit().remove();
+}, 2000); // after two second the bars are redrawn 
